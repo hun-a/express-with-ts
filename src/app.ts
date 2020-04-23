@@ -20,10 +20,17 @@ class App {
       MONGO_PATH,
     } = process.env;
 
-    mongoose.connect(
-      `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`,
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    );
+    const uris: string = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`;
+
+    const options: mongoose.ConnectionOptions = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false
+    };
+
+    mongoose
+      .connect(uris, options)
+      .catch(console.error);
   }
 
   private initializeMiddlewares() {
