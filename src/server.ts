@@ -1,15 +1,9 @@
-import * as express from 'express';
+import App from './app';
+import PostsController from './posts/posts.controller';
 
-const app = express();
+const app = new App(
+  [ new PostsController() ],
+  5000,
+);
 
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
-
-app.post('/', (req, res) => {
-  res.send(req.body);
-});
-
-app.listen(5000);
+app.listen();
