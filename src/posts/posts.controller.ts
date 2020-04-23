@@ -3,6 +3,7 @@ import * as express from 'express';
 import Post from './post.interface';
 import Controller from "./controller.interface";
 import postModel from "./posts.model";
+import PostNotFoundException from "../exceptions/PostNotFoundException";
 
 class PostsController implements Controller {
   public path = '/posts';
@@ -27,26 +28,44 @@ class PostsController implements Controller {
       .then(post => response.send(post));
   }
 
-  private getPostById = (request: express.Request, response: express.Response) => {
+  private getPostById = (request: express.Request, response: express.Response, next: express.NextFunction) => {
     const id = request.params.id;
     this.post
       .findById(id)
-      .then(post => response.send(post));
+      .then(post => {
+        if (post) {
+          response.send(post)
+        } else {
+          next(new PostNotFoundException(id));
+        }
+      });
   }
 
-  private modifyPost = (request: express.Request, response: express.Response) => {
+  private modifyPost = (request: express.Request, response: express.Response, next: express.NextFunction) => {
     const id = request.params.id;
     const postData: Post = request.body;
     this.post
       .findByIdAndUpdate(id, postData, { new: true })
-      .then(post => response.send(post));
+      .then(post => {
+        if (post) {
+          response.send(post)
+        } else {
+          next(new PostNotFoundException(id));
+        }
+      });
   }
 
-  private deletePost = (request: express.Request, response: express.Response) => {
+  private deletePost = (request: express.Request, response: express.Response, next: express.NextFunction) => {
     const id = request.params.id;
     this.post
       .findByIdAndDelete(id)
-      .then(successResponse => response.sendStatus(successResponse ? 200 : 404));
+      .then(successResponse => {
+        if (successResponse) {
+          response.sendStatus(200);
+        } else {
+          next(new PostNotFoundException(id));
+        }
+      });
   }
 
   private createPost = (request: express.Request, response: express.Response) => {
