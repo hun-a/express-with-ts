@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 import Controller from "./posts/controller.interface";
+import errorMiddleware from "./middleware/error.middleware";
 
 class App {
   public app: express.Application;
@@ -11,6 +12,7 @@ class App {
     this.connectToTheDatabase();
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
+    this.initializeErrorHandling();
   }
 
   private connectToTheDatabase() {
@@ -35,6 +37,10 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(express.json());
+  }
+
+  private initializeErrorHandling() {
+    this.app.use(errorMiddleware);
   }
 
   private initializeControllers(controllers) {
