@@ -1,16 +1,15 @@
 import * as express from 'express';
 
-function loggerMiddleware(request: express.Request, response: express.Response, next) {
-  console.log(`${request.method} ${request.path}`);
-  next();
-}
-
 const app = express();
 
-app.use(loggerMiddleware);
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello world!');
+});
+
+app.post('/', (req, res) => {
+  res.send(req.body);
 });
 
 app.listen(5000);
