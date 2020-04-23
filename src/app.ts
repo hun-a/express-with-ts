@@ -1,10 +1,11 @@
 import * as express from 'express';
+import Controller from "./posts/controller.interface";
 
 class App {
   public app: express.Application;
   public port: number;
 
-  constructor(controllers, port) {
+  constructor(controllers: Controller[], port: number) {
     this.app = express();
     this.port = port;
 
