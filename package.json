@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
     "envalid": "^6.0.1",
     "express": "^4.17.1",
