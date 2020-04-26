@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
 import Controller from "../interfaces/controller.interface";
 import userModel from "../users/user.model";
@@ -8,6 +9,9 @@ import CreateUserDto from "../users/user.dto";
 import LogInDto from "./login.dto";
 import UserWithThatEmailAlreadyExistsException from "../exceptions/UserWithThatEmailAlreadyExistsException";
 import WrongCredentialsException from "../exceptions/WrongCredentialsException";
+import User from "../users/user.interface";
+import TokenData from "../interfaces/tokenData.interface";
+import DataStoredInToken from "../interfaces/dataStoredInToken";
 
 export default class AuthenticationController implements Controller {
   public path: string;
@@ -54,5 +58,17 @@ export default class AuthenticationController implements Controller {
     } else {
       next(new WrongCredentialsException());
     }
+  }
+
+  private createToken(user: User): TokenData {
+    const expiresIn = 60 * 60;  // an hour
+    const secret = process.env.JWT_SECRET;
+    const dataStoredInToken: DataStoredInToken = {
+      _id: user._id
+    };
+    return {
+      expiresIn,
+      token: jwt.sign(dataStoredInToken, secret, { expiresIn })
+    };
   }
 }
