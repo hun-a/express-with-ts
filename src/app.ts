@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as mongoose from 'mongoose';
-import Controller from "./posts/controller.interface";
+import Controller from "./interfaces/controller.interface";
 import errorMiddleware from "./middleware/error.middleware";
 
 class App {

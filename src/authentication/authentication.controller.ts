@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as bcrypt from 'bcrypt';
 
-import Controller from "../posts/controller.interface";
+import Controller from "../interfaces/controller.interface";
 import userModel from "../users/user.model";
 import validationMiddleware from "../middleware/validation.middleware";
 import CreateUserDto from "../users/user.dto";

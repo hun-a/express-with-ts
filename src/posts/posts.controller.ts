@@ -1,7 +1,7 @@
 import * as express from 'express';
 
 import Post from './post.interface';
-import Controller from "./controller.interface";
+import Controller from "../interfaces/controller.interface";
 import postModel from "./posts.model";
 import PostNotFoundException from "../exceptions/PostNotFoundException";
 import validationMiddleware from "../middleware/validation.middleware";
