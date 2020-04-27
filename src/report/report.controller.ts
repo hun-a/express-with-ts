@@ -20,8 +20,45 @@ export default class ReportController implements Controller {
     const usersByCountries = await this.user.aggregate(
       [
         {
+          $match: {
+            'address.country': {
+              $exists: true,
+            }
+          }
+        },
+        {
           $group: {
-            _id: { country: '$address.city' }
+            _id: {
+              country: '$address.country',
+            },
+            users: {
+              $push: {
+                _id: '$_id',
+              },
+            },
+            count: {
+              $sum: 1,
+            },
+          },
+        },
+        {
+          $lookup: {
+            from: 'posts',
+            localField: 'users._id',
+            foreignField: 'author',
+            as: 'articles',
+          }
+        },
+        {
+          $addFields: {
+            amountOfArticles: {
+              $size: '$articles'
+            }
+          },
+        },
+        {
+          $sort: {
+            count: 1,
           },
         },
       ]
