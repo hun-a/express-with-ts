@@ -78,7 +78,7 @@ class PostsController implements Controller {
     const postData: CreatePostDto = request.body;
     const createdPost = new this.post({
       ...postData,
-      authorId: request.user._id
+      author: request.user._id,
     });
     const savedPost = await createdPost.save()
     response.send(savedPost);
