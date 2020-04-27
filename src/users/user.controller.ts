@@ -1,14 +1,14 @@
 import * as express from 'express';
 
 import Controller from "../interfaces/controller.interface";
-import postModel from "../posts/posts.model";
 import authMiddleware from "../middleware/auth.middleware";
 import RequestWithUser from "../interfaces/requestWithUser.interface";
+import UserService from "./user.service";
 
 export default class UserController implements Controller {
   public path: string = '/users';
   public router: express.Router =  express.Router();
-  private post = postModel;
+  private userService = new UserService();
 
   constructor() {
     this.initializeRoutes();
@@ -21,9 +21,11 @@ export default class UserController implements Controller {
   private getAllPostsOfUser = async (request: RequestWithUser, response: express.Response, next: express.NextFunction) => {
     const userId = request.params.id;
 
-    if (userId === request.user._id.toString()) {
-      const posts = await this.post.find({ author: userId });
+    try {
+      const posts = await this.userService.getAllPostsOfUser(userId, request.user);
       response.send(posts);
+    } catch (error) {
+      next(error);
     }
   }
 }
