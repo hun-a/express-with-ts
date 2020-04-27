@@ -39,6 +39,8 @@ export default class AuthenticationController implements Controller {
         password: hashedPassword
       });
       user.password = undefined;
+      const tokenData = this.createToken(user);
+      response.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
       response.send(user);
     }
   }
@@ -51,6 +53,8 @@ export default class AuthenticationController implements Controller {
       const isPasswordMatching = await bcrypt.compare(logInData.password, user.password);
       if (isPasswordMatching) {
         user.password = undefined;
+        const tokenData: TokenData = this.createToken(user);
+        response.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
         response.send(user);
       } else {
         next(new WrongCredentialsException());
@@ -70,5 +74,9 @@ export default class AuthenticationController implements Controller {
       expiresIn,
       token: jwt.sign(dataStoredInToken, secret, { expiresIn })
     };
+  }
+
+  private createCookie(tokenData: TokenData) {
+    return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
   }
 }
