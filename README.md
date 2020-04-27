@@ -10,6 +10,7 @@ Tutorial for the Express with Typescript!
     MONGO_PASSWORD=dbUserPassword
     MONGO_PATH=@ds111111.mlab.com:27594/test
     PORT=5000
+    JWT_SECRET=JWT_SECRET
     ```
 
 #### Run in DEV environment
