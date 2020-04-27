@@ -1,3 +1,4 @@
+// @ts-ignore
 import { IsString } from "class-validator";
 
 export default class LogInDto {

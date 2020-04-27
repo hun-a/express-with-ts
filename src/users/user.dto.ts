@@ -1,3 +1,4 @@
+// @ts-ignore
 import { IsOptional, IsString, ValidateNested } from "class-validator";
 import CreateAddressDto from "./address.dto";
 
