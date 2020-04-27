@@ -14,8 +14,8 @@ import TokenData from "../interfaces/tokenData.interface";
 import DataStoredInToken from "../interfaces/dataStoredInToken";
 
 export default class AuthenticationController implements Controller {
-  public path: string;
-  public router: express.Router;
+  public path: string = '/auth';
+  public router: express.Router = express.Router();
   private user = userModel;
 
   constructor() {
