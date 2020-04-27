@@ -26,3 +26,4 @@ $ npm run dev
 1. [TypeScript Express tutorial #4. Registering users and authenticating with JWT](https://wanago.io/2018/12/24/typescript-express-registering-authenticating-jwt)
 1. [TypeScript Express tutorial #5. MongoDB relationships between documents](https://wanago.io/2018/12/31/mongodb-relationships-documents-typescript-express-tutorial-5)
 1. [TypeScript Express tutorial #6. Basic data processing with MongoDB aggregation](https://wanago.io/2019/01/07/mongodb-aggregation-basic-data-processing-typescript-express-tutorial-6)
+1. [TypeScript Express tutorial #10. Testing Express applications](https://wanago.io/2019/02/04/typescript-express-testing)
