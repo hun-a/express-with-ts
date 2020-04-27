@@ -28,10 +28,9 @@ class PostsController implements Controller {
       .post(this.path, authMiddleware, validationMiddleware(CreatePostDto), this.createPost);
   }
 
-  private getAllPosts = (request: express.Request, response: express.Response) => {
-    this.post
-      .find()
-      .then(post => response.send(post));
+  private getAllPosts = async (request: express.Request, response: express.Response) => {
+    const posts = await this.post.find().populate('author', '-password');
+    response.send(posts);
   }
 
   private getPostById = (request: express.Request, response: express.Response, next: express.NextFunction) => {
@@ -80,7 +79,8 @@ class PostsController implements Controller {
       ...postData,
       author: request.user._id,
     });
-    const savedPost = await createdPost.save()
+    const savedPost = await createdPost.save();
+    await savedPost.populate('author', '-password').execPopulate();
     response.send(savedPost);
   }
 }
