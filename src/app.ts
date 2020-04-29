@@ -56,6 +56,10 @@ class App {
       console.log(`App listening on the port ${process.env.PORT}`);
     });
   }
+
+  public getServer() {
+    return this.app;
+  }
 }
 
 export default App;

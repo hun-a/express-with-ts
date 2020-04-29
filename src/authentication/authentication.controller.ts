@@ -25,7 +25,7 @@ export default class AuthenticationController implements Controller {
     const userData: CreateUserDto = request.body;
 
     try {
-      const {cookie, user} = await this.authenticationService.register(userData);
+      const { cookie, user } = await this.authenticationService.register(userData);
       response.setHeader('Set-Cookie', [cookie]);
       response.send(user);
     } catch (error) {
