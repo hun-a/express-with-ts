@@ -11,7 +11,7 @@ import LogInDto from "./login.dto";
 import WrongCredentialsException from "../exceptions/WrongCredentialsException";
 
 export default class AuthenticationService {
-  public user = userModel;
+  private user = userModel;
 
   public async register(userData: CreateUserDto) {
     if (await this.user.findOne({ email: userData.email })) {

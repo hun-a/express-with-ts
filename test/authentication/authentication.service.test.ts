@@ -5,6 +5,7 @@ import CreateUserDto from "../../src/users/user.dto";
 import UserWithThatEmailAlreadyExistsException from "../../src/exceptions/UserWithThatEmailAlreadyExistsException";
 import LogInDto from "../../src/authentication/login.dto";
 import WrongCredentialsException from "../../src/exceptions/WrongCredentialsException";
+import userModel from "../../src/users/user.model";
 
 const firstName: string = 'john';
 const lastName: string = 'smith';
@@ -28,7 +29,7 @@ describe('The AuthenticationService', () => {
     describe('if the email is already taken', () => {
       it('should throw an error', async () => {
         const authenticationService = new AuthenticationService();
-        authenticationService.user.findOne = jest.fn().mockReturnValue(Promise.resolve(userData));
+        (userModel as any).findOne = jest.fn().mockImplementation(() => Promise.resolve(userData));
 
         await expect(authenticationService.register(userData))
           .rejects.toMatchObject(new UserWithThatEmailAlreadyExistsException(userData.email));
@@ -40,8 +41,8 @@ describe('The AuthenticationService', () => {
         process.env.JWT_SECRET = 'jwt_secret';
 
         const authenticationService = new AuthenticationService();
-        authenticationService.user.findOne = jest.fn().mockReturnValue(Promise.resolve(undefined));
-        authenticationService.user.create = jest.fn().mockReturnValue({
+        (userModel as any).findOne = jest.fn().mockImplementation(() => Promise.resolve(undefined));
+        (userModel as any).create = jest.fn().mockReturnValue({
           ...userData,
           _id: 0
         });
@@ -61,7 +62,7 @@ describe('The AuthenticationService', () => {
     describe('if the password is invalid', () => {
       it('should throw an error', async () => {
         const authenticationService = new AuthenticationService();
-        authenticationService.user.findOne = jest.fn().mockReturnValue(Promise.resolve({
+        (userModel as any).findOne = jest.fn().mockImplementation(() => Promise.resolve({
           password: 'invalidStrongPassword123!',
         }));
 
@@ -73,7 +74,7 @@ describe('The AuthenticationService', () => {
     describe('it the password is valid', () => {
       it('should not throw an error', async () => {
         const authenticationService = new AuthenticationService();
-        authenticationService.user.findOne = jest.fn().mockReturnValue(Promise.resolve({ password }));
+        (userModel as any).findOne = jest.fn().mockImplementation(() => Promise.resolve({ password }));
 
         await expect(authenticationService.login(loginData))
           .resolves.toBeDefined();
