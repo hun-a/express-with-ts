@@ -28,7 +28,7 @@ class PostsController implements Controller {
   }
 
   private getAllPosts = async (request: express.Request, response: express.Response) => {
-    const posts = this.postsService.getAllPosts();
+    const posts = await this.postsService.getAllPosts();
     response.send(posts);
   }
 
