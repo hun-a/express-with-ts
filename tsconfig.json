@@ -2,6 +2,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "target": "es2017",
     "outDir": "./dist",
     "baseUrl": "./src"
