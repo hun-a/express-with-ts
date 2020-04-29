@@ -1,4 +1,6 @@
+// @ts-ignore
 import { plainToClass } from 'class-transformer';
+// @ts-ignore
 import { validate, ValidationError } from 'class-validator';
 import * as express from 'express';
 import HttpException from "../exceptions/HttpException";
@@ -16,9 +18,3 @@ export default function validationMiddleware<T>(type: any, skipMissingProperties
       });
   };
 }
-
-class Pizza {
-
-}
-
-plainToClass(Pizza, {});
