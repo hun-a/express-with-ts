@@ -11,7 +11,7 @@ import LogInDto from "./login.dto";
 import WrongCredentialsException from "../exceptions/WrongCredentialsException";
 
 export default class AuthenticationService {
-  private user = userModel;
+  public user = userModel;
 
   public async register(userData: CreateUserDto) {
     if (await this.user.findOne({ email: userData.email })) {
@@ -31,7 +31,7 @@ export default class AuthenticationService {
     return { cookie, user };
   }
 
-  public createToken(user: User): TokenData {
+  private createToken(user: User): TokenData {
     const expiresIn: number = 60 * 60;
     const secret: string = process.env.JWT_SECRET;
     const dataStoredInToken: DataStoredInToken = { _id: user._id };
@@ -42,7 +42,7 @@ export default class AuthenticationService {
     };
   }
 
-  public createCookie(tokenData: TokenData): string {
+  private createCookie(tokenData: TokenData): string {
     return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
   }
 
