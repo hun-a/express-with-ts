@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import * as speakeasy from 'speakeasy';
 
 import userModel from "../users/user.model";
 import CreateUserDto from "../users/user.dto";
@@ -64,5 +65,15 @@ export default class AuthenticationService {
     } else {
       throw new WrongCredentialsException();
     }
+  }
+
+  public getTwoFactorAuthenticationCode() {
+    const secretCode = speakeasy.generateSecret({
+      name: process.env.TWO_FACTOR_AUTHENTICATION_APP_NAME
+    });
+    return {
+      otpauthUrl: secretCode.otpauth_url,
+      base32: secretCode.base32
+    };
   }
 }
