@@ -28,3 +28,4 @@ $ npm run dev
 1. [TypeScript Express tutorial #6. Basic data processing with MongoDB aggregation](https://wanago.io/2019/01/07/mongodb-aggregation-basic-data-processing-typescript-express-tutorial-6)
 1. [TypeScript Express tutorial #10. Testing Express applications](https://wanago.io/2019/02/04/typescript-express-testing)
 1. [TypeScript Express tutorial #11. Node.js Two-Factor Authentication](https://wanago.io/2019/07/22/nodejs-two-factor-authentication)
+1. [TypeScript Express tutorial #12. Creating a CI/CD pipeline with Travis and Heroku](https://wanago.io/2019/10/14/typescript-express-ci-cd-pipeline-travis-heroku)
