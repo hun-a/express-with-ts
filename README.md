@@ -30,3 +30,4 @@ $ npm run dev
 1. [TypeScript Express tutorial #11. Node.js Two-Factor Authentication](https://wanago.io/2019/07/22/nodejs-two-factor-authentication)
 1. [TypeScript Express tutorial #12. Creating a CI/CD pipeline with Travis and Heroku](https://wanago.io/2019/10/14/typescript-express-ci-cd-pipeline-travis-heroku)
 1. [TypeScript Express tutorial #13. Using Mongoose virtuals to populate documents](https://wanago.io/2020/02/10/typescript-express-tutorial-13-using-mongoose-virtuals-to-populate-documents)
+1. [TypeScript Express tutorial #14. Code optimization with Mongoose Lean Queries](https://wanago.io/2020/04/20/typescript-express-tutorial-code-optimization-mongoose-lean)
